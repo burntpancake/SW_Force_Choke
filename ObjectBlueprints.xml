@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<objects>
+  <object Name="ZD_SWForceGesture" Inherits="Item">
+    <part Name="Render" DisplayName="force gesture"></part>
+    <part Name="MeleeWeapon" Unarmed="true" Slot="Hand"></part>
+    <part Name="Armor" WornOn="Hand"></part>
+    <part Name="NoBreak"></part>
+    <part Name="NoDamage"></part>
+    <part Name="Commerce" Value="0"></part>
+    <part Name="Description" Short="You raise your hand to form a Force Gesture, projecting power and magnificence."></part>
+    <part Name="Cursed"></part>
+    <part Name="Physics" Weight="0" IsReal="false"></part>
+    <property Name="Natural" Value="1"></property>
+    <tag Name="NoSparkingQuest"></tag>
+  </object>
+</objects>

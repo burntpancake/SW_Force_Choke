@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mutations>
+  <category Name="Mental">
+    <mutation Name="Force Choke" Cost="3" MaxSelected="1" Class="ZD_SWForceChoke" Exclusions="" Stat="Ego" Code="fc"></mutation>
+ </category>
+</mutations>
