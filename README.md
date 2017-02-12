@@ -1,7 +1,7 @@
 # SW_Force_Choke
 Caves of qud mod - Force Choke
 
-Get Caves of Qud here on Steam!
+Get Caves of Qud on Steam!
 
 http://store.steampowered.com/app/333640
 
