@@ -201,6 +201,7 @@ namespace XRL.World.Parts.Mutation
                 {
                     if (GO.HasPart("Brain"))//Check if the creature can breathe
                     {
+                        EquipForceGesture();
                         //Apply force choking effect to victim
                         GO.ApplyEffect((Effect)new XRL.World.Parts.Effects.ZD_Choking(Level, GetBaseDamage(Level), GetBonusDamage(Level), ParentObject, GetSaveBonus(Level), GetRange(Level), ForceGestureObject));
                         
@@ -284,16 +285,9 @@ namespace XRL.World.Parts.Mutation
                 if (C != null)
                 {
                     this.SWForceChokeActivatedAbility.Cooldown = this.GetCooldown(Level) * 10 + 10;
-                    //Popup.Show("Energy before equip: " + this.ParentObject.Energy, true);
-                    EquipForceGesture();
-                    //Popup.Show("Energy after equip: " + this.ParentObject.Energy, true);
                     this.SW_Choke(C);
-                    //Popup.Show("Energy after choke before energy usage: " + this.ParentObject.Energy, true);
                     //Cost 0 energy because the mandatory ForceGetureEquip already cost 1000
-                    //this.UseEnergy(1000, "Mental Mutation");
-                    //Popup.Show("Energy afterwards: " + this.ParentObject.Energy, true);
-                    //UnequipForceGesture();
-                    //Popup.Show("Energy after unequip: " + this.ParentObject.Energy, true);
+                    ParentObject.FireEvent(Event.New("UseEnergy", "Amount", 0, "Type", "Mental Mutation ForceChoke"));
                 }
             }
 
