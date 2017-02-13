@@ -112,6 +112,8 @@ namespace XRL.World.Parts.Effects
                             E1.AddParameter("Message", "when choking by the Force!");
                             this.Object.FireEvent(E1);
                         }
+                        //This line signals a use energy event, will disrupt abilities such as tignten carapace
+                        Drainer.FireEvent(Event.New("UseEnergy", "Amount", 0, "Type", "Mental Mutation ForceChoke"));
                     }
                     else
                     {
