@@ -16,6 +16,7 @@ namespace XRL.World.Parts.Effects
         public int SaveDifficulty;
         public int bonusDamageMutiplier = 0;
         public int range;
+        public GameObject forceGestureObject;
 
         public ZD_Choking()
         {
@@ -23,7 +24,7 @@ namespace XRL.World.Parts.Effects
             this.SaveTarget = 20;
         }
 
-        public ZD_Choking(int _Level, string BaseDamagePerRound, string BonusDamagePerRound, GameObject _Drainer, int _SaveDifficulty, int _range)
+        public ZD_Choking(int _Level, string BaseDamagePerRound, string BonusDamagePerRound, GameObject _Drainer, int _SaveDifficulty, int _range, GameObject _forceGestureObject)
         {
             this.SaveTarget = 20;
             this.DisplayName = "force choking";
@@ -34,11 +35,12 @@ namespace XRL.World.Parts.Effects
             this.Level = _Level;
             SaveDifficulty = _SaveDifficulty;
             range = _range;
+            forceGestureObject = _forceGestureObject;
         }
 
         public override bool Apply(GameObject Object)
         {
-            if (!Object.FireEvent(Event.New("ApplyLifeDrain")))
+            if (!Object.FireEvent(Event.New("ApplySWForceChoke")))
                 return false;
             if (Object.IsPlayer())
                 MessageQueue.AddPlayerMessage("&r" + this.Drainer.The + this.Drainer.ShortDisplayName + " is choking you using the Force!");
@@ -49,16 +51,19 @@ namespace XRL.World.Parts.Effects
 
         public override void Remove(GameObject Object)
         {
+            
         }
 
         public override void Register(GameObject Object)
         {
             Object.RegisterEffectEvent((Effect)this, "EndTurn");
+            Object.RegisterEffectEvent((Effect)this, "BeforeDeathRemoval");
         }
 
         public override void Unregister(GameObject Object)
         {
             Object.UnregisterEffectEvent((Effect)this, "EndTurn");
+            Object.UnregisterEffectEvent((Effect)this, "BeforeDeathRemoval");
         }
 
         public override bool Render(Cell.RenderEvent E)
@@ -86,7 +91,7 @@ namespace XRL.World.Parts.Effects
             if (E.ID == "EndTurn")
             {
                 if ((this.Drainer.GetPart("Physics") as Physics).CurrentCell.IsGraveyard())
-                    this.Duration = 0;
+                    Duration = 0;
                 //Check range
                 if ((this.Object.GetPart("Physics") as Physics).CurrentCell.DistanceTo((Drainer.GetPart("Physics") as Physics).CurrentCell) > range)
                     Duration = 0;
@@ -105,20 +110,30 @@ namespace XRL.World.Parts.Effects
                             E1.AddParameter("Owner", (object)this.Drainer);
                             E1.AddParameter("Attacker", (object)this.Drainer);
                             E1.AddParameter("Message", "when choking by the Force!");
-                            if (this.Object.FireEvent(E1))
-                                this.Drainer.Statistics["Hitpoints"].Penalty -= damage.Amount;
+                            this.Object.FireEvent(E1);
                         }
                     }
                     else
                     {
-                        this.Duration = 0;
-                        if (this.Drainer.IsPlayer())
-                            MessageQueue.AddPlayerMessage(this.Object.The + this.Object.DisplayName + " breaks free from your Force choke!");
-                        else if (this.Object.IsPlayer())
-                            MessageQueue.AddPlayerMessage("You break free from Force choke!");
+                        this.Duration = 0;                      
                     }                   
                 }
+                
+                if(Duration == 0)
+                {
+                    if (this.Drainer.IsPlayer())
+                        MessageQueue.AddPlayerMessage(this.Object.The + this.Object.DisplayName + " breaks free from your Force choke!");
+                    else if (this.Object.IsPlayer())
+                        MessageQueue.AddPlayerMessage("You break free from Force choke!");
+                    forceGestureObject.Destroy();
+                }
             }
+
+            if (E.ID == "BeforeDeathRemoval")
+            {
+                forceGestureObject.Destroy();
+            }
+
             return true;
         }
     }

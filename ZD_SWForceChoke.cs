@@ -31,7 +31,7 @@ namespace XRL.World.Parts.Mutation
 
             Object.RegisterPartEvent((IPart)this, "CommandSWForceChoke");
             Object.RegisterPartEvent((IPart)this, "AIGetOffensiveMutationList");
-            Object.RegisterPartEvent((IPart)this, "BeginEquip");
+            Object.RegisterPartEvent((IPart)this, "BeginUnEquip");
         }
 
         public override string GetDescription()
@@ -202,52 +202,8 @@ namespace XRL.World.Parts.Mutation
                     if (GO.HasPart("Brain"))//Check if the creature can breathe
                     {
                         //Apply force choking effect to victim
-                        GO.ApplyEffect((Effect)new XRL.World.Parts.Effects.ZD_Choking(Level, GetBaseDamage(Level), GetBonusDamage(Level), ParentObject, GetSaveBonus(Level), GetRange(Level)));
-                        /*
-                        int Pens = Stat.RollDamagePenetrations(GetToughnessDefense(GO), nBonus, nBonus);
-                        int TotalDamage = 0;
-                        for (int index = 0; index < Pens; ++index)
-                            TotalDamage += Stat.Roll(GetBaseDamage(this.Level));
-                        if (TotalDamage == 0)
-                        {
-                            if (this.ParentObject.IsPlayer())
-                                XRLCore.Core.Game.Player.Messages.Add("&rYou fail to force " + GO.DisplayName + " to choke.");
-                        }
-                        else
-                        {
-                            Damage damage = new Damage(TotalDamage);
-                            damage.AddAttribute("Physical");
-                            string resultColor = Stat.GetResultColor(TotalDamage);
-                            Event E = Event.New("TakeDamage");
-                            E.AddParameter("Damage", (object)damage);
-                            E.AddParameter("Owner", (object)this.ParentObject);
-                            E.AddParameter("Attacker", (object)this.ParentObject);
-                            if (!GO.FireEvent(E) || damage.Amount == 0)
-                            {
-                                if (GO.IsPlayer())
-                                    XRLCore.Core.Game.Player.Messages.Add("&rThe " + this.ParentObject.DisplayName + " fails to force choke you.");
-                                else if (this.ParentObject.IsPlayer())
-                                    XRLCore.Core.Game.Player.Messages.Add("Your attack does not affect " + GO.the + GO.DisplayName + ".");
-                            }
-                            else if (GO.IsPlayer())
-                                XRLCore.Core.Game.Player.Messages.Add("&rThe " + this.ParentObject.DisplayName + " force choke you " + resultColor + "(x" + TotalDamage.ToString() + ")&y for " + damage.Amount.ToString() + " damage!");
-                            else if (this.ParentObject.IsPlayer())
-                                XRLCore.Core.Game.Player.Messages.Add("&gYou force choke " + GO.DisplayName + resultColor + "(x" + TotalDamage.ToString() + ")&y for " + damage.Amount.ToString() + " damage!");
-                            if (bDraw)
-                            {
-                                for (int index1 = 0; index1 < 4; ++index1)
-                                {
-                                    for (int index2 = 0; index2 < 5; ++index2)
-                                        GO.ParticleText("&B" + (object)(char)(219 + Stat.Random(0, 4)), 4.9f, 5);
-                                    for (int index2 = 0; index2 < 5; ++index2)
-                                        GO.ParticleText("&b" + (object)(char)(219 + Stat.Random(0, 4)), 4.9f, 5);
-                                    for (int index2 = 0; index2 < 5; ++index2)
-                                        GO.ParticleText("&W" + (object)(char)(219 + Stat.Random(0, 4)), 4.9f, 5);
-                                }
-                            }
-                            
-                            
-                        }*/
+                        GO.ApplyEffect((Effect)new XRL.World.Parts.Effects.ZD_Choking(Level, GetBaseDamage(Level), GetBonusDamage(Level), ParentObject, GetSaveBonus(Level), GetRange(Level), ForceGestureObject));
+                        
                     }
                 }
             }
@@ -280,7 +236,7 @@ namespace XRL.World.Parts.Mutation
             ParentObject.FireEvent(Event.New("CommandForceUnequipObject", "BodyPartName", partName));
         }
 
-        private bool AllowFullHand = true;
+        private bool AllowFullHand = false;//Allows the mutation to be used when there's no free hands if set to true
         public override bool FireEvent(Event E)
         {
             
@@ -341,6 +297,8 @@ namespace XRL.World.Parts.Mutation
                     //Cost 0 energy because the mandatory ForceGetureEquip already cost 1000
                     //this.UseEnergy(1000, "Mental Mutation");
                     //Popup.Show("Energy afterwards: " + this.ParentObject.Energy, true);
+                    //UnequipForceGesture();
+                    //Popup.Show("Energy after unequip: " + this.ParentObject.Energy, true);
                 }
             }
 
