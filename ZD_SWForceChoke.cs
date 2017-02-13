@@ -231,11 +231,6 @@ namespace XRL.World.Parts.Mutation
             this.ParentObject.FireEvent(E);
         }
 
-        public void UnequipForceGesture()
-        {
-            ParentObject.FireEvent(Event.New("CommandForceUnequipObject", "BodyPartName", partName));
-        }
-
         private bool AllowFullHand = false;//Allows the mutation to be used when there's no free hands if set to true
         public override bool FireEvent(Event E)
         {

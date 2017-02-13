@@ -12,5 +12,7 @@
     <part Name="Physics" Weight="0" IsReal="false"></part>
     <property Name="Natural" Value="1"></property>
     <tag Name="NoSparkingQuest"></tag>
+    <tag Name="ExcludeFromDynamicEncounters" Value="*noinherit"></tag>
+    <part Name="ZD_SWForceGesture"></part>
   </object>
 </objects>

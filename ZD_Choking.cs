@@ -133,7 +133,6 @@ namespace XRL.World.Parts.Effects
             {
                 forceGestureObject.Destroy();
             }
-
             return true;
         }
     }
