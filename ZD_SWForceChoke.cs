@@ -21,8 +21,8 @@ namespace XRL.World.Parts.Mutation
 
         public ZD_SWForceChoke()
         {
-            Name = "SWForceChoke";
-            DisplayName = "Force Choke";
+            Name = "ZD_SWForceChoke";
+            DisplayName = "Force choke";
             this.Type = "Mental";
         }
 
@@ -225,7 +225,6 @@ namespace XRL.World.Parts.Mutation
                 ForceGestureObject = GameObjectFactory.Factory.CreateObject("ZD_SWForceGesture");
             Armor part = ForceGestureObject.GetPart("Armor") as Armor;
             part.WornOn = partName;
-            (ForceGestureObject.GetPart("Render") as Render).DisplayName = this.DisplayName;
             Event E = Event.New("CommandForceEquipObject");
             E.AddParameter("Object", (object)ForceGestureObject);
             E.AddParameter("BodyPartName", partName);
