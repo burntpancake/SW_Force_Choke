@@ -51,7 +51,7 @@ namespace XRL.World.Parts.Effects
 
         public override void Remove(GameObject Object)
         {
-            
+
         }
 
         public override void Register(GameObject Object)
@@ -98,7 +98,7 @@ namespace XRL.World.Parts.Effects
 
                 if (this.Duration > 0)
                 {
-                    if (Stat.Roll("1d8") + Math.Max(this.Drainer.Statistics["Ego"].Modifier, this.Level) + SaveDifficulty > GetToughnessDefense(this.Object) + 2 + (bonusDamageMutiplier * bonusDamageMutiplier)/2)
+                    if (Stat.Roll("1d8") + Math.Max(this.Drainer.Statistics["Ego"].Modifier, this.Level) + SaveDifficulty > GetToughnessDefense(this.Object) + 2 + (bonusDamageMutiplier * bonusDamageMutiplier) / 2)
                     {
                         XRL.World.Damage damage = new XRL.World.Damage(Stat.Roll(BaseDamage) + bonusDamageMutiplier * Stat.Roll(BonusDamage));
                         bonusDamageMutiplier++;
@@ -113,15 +113,15 @@ namespace XRL.World.Parts.Effects
                             this.Object.FireEvent(E1);
                         }
                         //This line signals a use energy event, will disrupt abilities such as tignten carapace
-                        Drainer.FireEvent(Event.New("UseEnergy", "Amount", 0, "Type", "Mental Mutation ForceChoke"));
+                        Drainer.FireEvent(Event.New("UseEnergy", "Amount", 0, "Type", "Maintain Mental Mutation ForceChoke"));
                     }
                     else
                     {
-                        this.Duration = 0;                      
-                    }                   
+                        this.Duration = 0;
+                    }
                 }
-                
-                if(Duration == 0)
+
+                if (Duration == 0)
                 {
                     if (this.Drainer.IsPlayer())
                         MessageQueue.AddPlayerMessage(this.Object.The + this.Object.DisplayName + " breaks free from your Force choke!");

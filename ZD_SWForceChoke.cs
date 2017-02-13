@@ -36,7 +36,7 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetDescription()
         {
-            return "You can use the Force to squeeze a victim's throat continuously, doing so requires one free hand. \n" 
+            return "You can use the Force to squeeze a victim's throat continuously, doing so requires one free hand. \n"
                 + "Your vitim may break free each turn by passing a toughness save, or getting out of range. \n"
                 + "While maintaing the Force Choke gesture, you may NOT use another ability or missile weapons. \n";
         }
@@ -48,7 +48,7 @@ namespace XRL.World.Parts.Mutation
             Ret += "Base damage each turn: " + GetBaseDamage(Level) + "\n";
             Ret += "Extra damage for each consecutive turn: " + GetBonusDamage(Level) + "\n";
             Ret += "Range: " + GetRange(Level).ToString() + "\n";
-            if(Level != this.Level)
+            if (Level != this.Level)
             {
                 Ret += "Increase the save difficulty of your Force Choke ";
                 if (Level == 2 || Level == 6 || Level == 10)
@@ -81,8 +81,8 @@ namespace XRL.World.Parts.Mutation
             else if (Level == 9)
                 return "2d3";
             else if (Level >= 11)
-                return "2d3+" + ((Level - 9)/2).ToString();
-            else 
+                return "2d3+" + ((Level - 9) / 2).ToString();
+            else
                 return "1";
         }
 
@@ -108,7 +108,7 @@ namespace XRL.World.Parts.Mutation
             else if (Level == 9)
                 return "3d2";
             else if (Level >= 10)
-                return "3d2+" + ((Level - 8)/2).ToString();
+                return "3d2+" + ((Level - 8) / 2).ToString();
             else
                 return "1d3";
         }
@@ -128,15 +128,15 @@ namespace XRL.World.Parts.Mutation
         //This is the maximum turn you can maintain force choke as well.
         public int GetRange(int Level)
         {
-            if(Level < 4)
+            if (Level < 4)
             {
                 return 3;
             }
-            else if(Level < 7)
+            else if (Level < 7)
             {
                 return 4;
             }
-            else if(Level >= 7)
+            else if (Level >= 7)
             {
                 return 5;
             }
@@ -148,7 +148,7 @@ namespace XRL.World.Parts.Mutation
         {
             if (Level <= 10)
             {
-                return CooldownRound - Level/2;
+                return CooldownRound - Level / 2;
             }
             else if (Level > 10)
             {
@@ -176,8 +176,8 @@ namespace XRL.World.Parts.Mutation
             }
             return true;
         }
-        
-        
+
+
 
         public int GetToughnessDefense(GameObject GO)
         {
@@ -186,9 +186,9 @@ namespace XRL.World.Parts.Mutation
                 num += GO.Statistics["Toughness"].Modifier;
             return num;
         }
-        
+
         public void SW_Choke(Cell C)
-        {          
+        {
             TextConsole textConsole = Look._TextConsole;
             ScreenBuffer scrapBuffer = TextConsole.ScrapBuffer;
             XRLCore.Core.RenderMapToBuffer(scrapBuffer);
@@ -204,7 +204,7 @@ namespace XRL.World.Parts.Mutation
                         EquipForceGesture();
                         //Apply force choking effect to victim
                         GO.ApplyEffect((Effect)new XRL.World.Parts.Effects.ZD_Choking(Level, GetBaseDamage(Level), GetBonusDamage(Level), ParentObject, GetSaveBonus(Level), GetRange(Level), ForceGestureObject));
-                        
+
                     }
                 }
             }
@@ -234,7 +234,7 @@ namespace XRL.World.Parts.Mutation
         private bool AllowFullHand = false;//Allows the mutation to be used when there's no free hands if set to true
         public override bool FireEvent(Event E)
         {
-            
+
             if (E.ID == "AIGetOffensiveMutationList")
             {
                 int parameter1 = (int)E.GetParameter("Distance");
@@ -262,16 +262,16 @@ namespace XRL.World.Parts.Mutation
                 if (body != null)
                 {
                     List<BodyPart> hands = body.GetPart("Hand");
-                    
-                    foreach(BodyPart hand in hands)
+
+                    foreach (BodyPart hand in hands)
                     {
-                        if(hand._Equipped == null)
+                        if (hand._Equipped == null)
                         {
                             HasEmptyHand = true;
                             partName = hand.Name;//Records the free hand
                             break;
                         }
-                    }                    
+                    }
                 }
                 if (!HasEmptyHand && !AllowFullHand)
                 {
@@ -279,7 +279,7 @@ namespace XRL.World.Parts.Mutation
                         Popup.Show("You must have a free hand without any equipment to do a force gesture!", true);
                     return true;
                 }
-                    
+
 
                 if (C != null)
                 {
@@ -292,7 +292,7 @@ namespace XRL.World.Parts.Mutation
 
 
             return true;
-        } 
-             
+        }
+
     }
 }
