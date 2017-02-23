@@ -58,12 +58,14 @@ namespace XRL.World.Parts.Effects
         {
             Object.RegisterEffectEvent((Effect)this, "EndTurn");
             Object.RegisterEffectEvent((Effect)this, "BeforeDeathRemoval");
+            Object.RegisterEffectEvent((Effect)this, "StopChoking");
         }
 
         public override void Unregister(GameObject Object)
         {
             Object.UnregisterEffectEvent((Effect)this, "EndTurn");
             Object.UnregisterEffectEvent((Effect)this, "BeforeDeathRemoval");
+            Object.UnregisterEffectEvent((Effect)this, "StopChoking");
         }
 
         public override bool Render(Cell.RenderEvent E)
@@ -86,8 +88,20 @@ namespace XRL.World.Parts.Effects
             return num;
         }
 
+        bool stopped = false;
         public override bool FireEvent(Event E)
-        {
+        {            
+            if (E.ID == "StopChoking")
+            {
+                this.Duration = 0;
+                if (this.Drainer.IsPlayer())
+                    MessageQueue.AddPlayerMessage("You stop force choking " + this.Object.The + this.Object.DisplayName + ".");
+                else if (this.Object.IsPlayer())
+                    MessageQueue.AddPlayerMessage("You are released from Force choke!");
+                stopped = true;
+                return true;
+            }
+
             if (E.ID == "EndTurn")
             {
                 if ((this.Drainer.GetPart("Physics") as Physics).CurrentCell.IsGraveyard())
@@ -123,18 +137,26 @@ namespace XRL.World.Parts.Effects
 
                 if (Duration == 0)
                 {
-                    if (this.Drainer.IsPlayer())
-                        MessageQueue.AddPlayerMessage(this.Object.The + this.Object.DisplayName + " breaks free from your Force choke!");
-                    else if (this.Object.IsPlayer())
-                        MessageQueue.AddPlayerMessage("You break free from Force choke!");
+                    if(!stopped)
+                    {
+                        if (this.Drainer.IsPlayer())
+                            MessageQueue.AddPlayerMessage(this.Object.The + this.Object.DisplayName + " breaks free from your Force choke!");
+                        else if (this.Object.IsPlayer())
+                            MessageQueue.AddPlayerMessage("You break free from Force choke!");
+                    }                  
                     forceGestureObject.Destroy();
                 }
+                return true;
             }
 
             if (E.ID == "BeforeDeathRemoval")
             {
                 forceGestureObject.Destroy();
+                return true;
             }
+
+            
+
             return true;
         }
     }

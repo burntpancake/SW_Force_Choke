@@ -31,7 +31,7 @@ namespace XRL.World.Parts.Mutation
 
             Object.RegisterPartEvent((IPart)this, "CommandSWForceChoke");
             Object.RegisterPartEvent((IPart)this, "AIGetOffensiveMutationList");
-            Object.RegisterPartEvent((IPart)this, "BeginUnEquip");
+            Object.RegisterPartEvent((IPart)this, "CommandStopSWForceChoke");
         }
 
         public override string GetDescription()
@@ -201,6 +201,7 @@ namespace XRL.World.Parts.Mutation
                 {
                     if (GO.HasPart("Brain"))//Check if the creature can breathe
                     {
+                        ChokedObject = GO;
                         EquipForceGesture();
                         //Apply force choking effect to victim
                         GO.ApplyEffect((Effect)new XRL.World.Parts.Effects.ZD_Choking(Level, GetBaseDamage(Level), GetBonusDamage(Level), ParentObject, GetSaveBonus(Level), GetRange(Level), ForceGestureObject));
@@ -232,9 +233,9 @@ namespace XRL.World.Parts.Mutation
         }
 
         private bool AllowFullHand = false;//Allows the mutation to be used when there's no free hands if set to true
+        private GameObject ChokedObject;
         public override bool FireEvent(Event E)
         {
-
             if (E.ID == "AIGetOffensiveMutationList")
             {
                 int parameter1 = (int)E.GetParameter("Distance");
@@ -242,6 +243,11 @@ namespace XRL.World.Parts.Mutation
                 List<AICommandList> parameter3 = (List<AICommandList>)E.GetParameter("List");
                 if (this.SWForceChokeActivatedAbility != null && this.SWForceChokeActivatedAbility.Cooldown <= 0 && parameter1 <= this.GetRange(this.Level) && this.ParentObject.HasLOSTo(parameter2))
                     parameter3.Add(new AICommandList("CommandSWForceChoke", 1));
+                return true;
+            }
+            if(E.ID == "CommandStopSWForceChoke")
+            {
+                ChokedObject.FireEvent(Event.New("StopChoking"));
                 return true;
             }
             if (E.ID == "CommandSWForceChoke")
@@ -289,7 +295,6 @@ namespace XRL.World.Parts.Mutation
                     ParentObject.FireEvent(Event.New("UseEnergy", "Amount", 0, "Type", "Mental Mutation ForceChoke"));
                 }
             }
-
 
             return true;
         }
