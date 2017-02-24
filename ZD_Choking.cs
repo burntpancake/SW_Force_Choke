@@ -18,6 +18,8 @@ namespace XRL.World.Parts.Effects
         public int range;
         public GameObject forceGestureObject;
 
+        private int SpeedPenalty;
+
         public ZD_Choking()
         {
             this.BaseDamage = "1";
@@ -46,12 +48,18 @@ namespace XRL.World.Parts.Effects
                 MessageQueue.AddPlayerMessage("&r" + this.Drainer.The + this.Drainer.ShortDisplayName + " is choking you using the Force!");
             else if (this.Drainer.IsPlayer())
                 MessageQueue.AddPlayerMessage("&gYou begin to choke " + Object.The + Object.DisplayName + " with the Force!");
+
+            this.SpeedPenalty = 30;
+            if (Object.Statistics.ContainsKey("MoveSpeed"))
+                Object.Statistics["MoveSpeed"].Penalty += this.SpeedPenalty;
             return true;
         }
 
         public override void Remove(GameObject Object)
         {
-
+            if (Object.Statistics.ContainsKey("MoveSpeed"))
+                Object.Statistics["MoveSpeed"].Penalty -= this.SpeedPenalty;
+            this.SpeedPenalty = 0;
         }
 
         public override void Register(GameObject Object)

@@ -43,7 +43,7 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetLevelText(int Level)
         {
-            string Ret = "Employ the Force to choke a victim's throat, render them painful and 30% slower.\n";
+            string Ret = "Employ the Force to choke a victim's throat, render them painful and move 30% slower.\n";
             Ret += "Cooldown: " + GetCooldown(Level) + " rounds\n";
             Ret += "Base damage each turn: " + GetBaseDamage(Level) + "\n";
             Ret += "Extra damage for each consecutive turn: " + GetBonusDamage(Level) + "\n";
