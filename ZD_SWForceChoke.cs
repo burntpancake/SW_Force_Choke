@@ -202,6 +202,7 @@ namespace XRL.World.Parts.Mutation
                     if (GO.HasPart("Brain"))
                     {
                         //if(GO.HasTag("HeroNamePrefixes"))
+                        if (GO.HasTag("CanBeChoked"))
                         {
                             ChokedObject = GO;
                             EquipForceGesture();

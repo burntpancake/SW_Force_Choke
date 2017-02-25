@@ -16,14 +16,19 @@
     <part Name="ZD_SWForceGesture"></part>
   </object>   
   <object Name="Humanoid" Inherits="Creature" Load="Merge">
+    <tag Name="CanBeChoked"></tag>
   </object>
   <object Name="BaseBear" Inherits="BaseAnimal" Load="Merge">
+       <tag Name="CanBeChoked"></tag>
   </object>
   <object Name="BaseReptile" Inherits="Animal" Load="Merge">
+       <tag Name="CanBeChoked"></tag>
   </object>
   <object Name="BaseBird" Inherits="Animal" Load="Merge">
+       <tag Name="CanBeChoked"></tag>
   </object>
   <object Name="BaseAntelope" Inherits="BaseAnimal" Load="Merge">
+       <tag Name="CanBeChoked"></tag>
   </object>
 </objects>
 
