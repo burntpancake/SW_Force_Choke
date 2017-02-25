@@ -37,8 +37,8 @@ namespace XRL.World.Parts.Mutation
         public override string GetDescription()
         {
             return "You can use the Force to squeeze a victim's throat continuously, doing so requires one free hand. \n"
-                + "Your vitim may break free each turn by passing a toughness save, or getting out of range. \n"
-                + "While maintaing the Force Choke gesture, you may NOT use another ability or missile weapons. \n";
+                + "Your victim may break free each turn by passing a toughness save, or getting out of range. \n"
+                + "Use another mental ability or missile weapons will disrupt your maintain of the force, ending the effect. \n";
         }
 
         public override string GetLevelText(int Level)

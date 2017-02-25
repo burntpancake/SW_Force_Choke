@@ -65,7 +65,7 @@ namespace XRL.World.Parts
                 if ((E.GetParameter("EquippingObject") as GameObject).IsPlayer())
                 {
                     OnPlayer = true;
-                    Popup.Show("You equipped the Force Gesture!" + (E.GetParameter("EquippingObject") as GameObject).ToString(), true);
+                    //Popup.Show("You equipped the Force Gesture!" + (E.GetParameter("EquippingObject") as GameObject).ToString(), true);
                 }
                 Wearer = (E.GetParameter("EquippingObject") as GameObject);
 
