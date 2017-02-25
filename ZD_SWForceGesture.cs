@@ -44,7 +44,7 @@ namespace XRL.World.Parts
                 {
                     EndSignalSent = true;
                     if (OnPlayer)
-                        Popup.Show("You cannot use mental powers while maintaining Force choke!", true);
+                        Popup.Show("You no longer maintain force choke as your mind focus on other mental powers.", true);
                     if (Wearer != null)
                         Wearer.FireEvent(Event.New("CommandStopSWForceChoke"));
                     return true;
@@ -53,7 +53,7 @@ namespace XRL.World.Parts
                 {
                     EndSignalSent = true;
                     if (OnPlayer)
-                        Popup.Show("You cannot deal missile attacks while maintaining Force choke!", true);
+                        Popup.Show("You no longer maintain force choke as your mind focus on missile attacks.", true);
                     if (Wearer != null)
                         Wearer.FireEvent(Event.New("CommandStopSWForceChoke"));
                     return true;
