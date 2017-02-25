@@ -199,12 +199,19 @@ namespace XRL.World.Parts.Mutation
             {
                 foreach (GameObject GO in C.GetObjectsInCell())
                 {
-                    if (GO.HasPart("Brain"))//Check if the creature can breathe
+                    if (GO.HasPart("Brain"))
                     {
-                        ChokedObject = GO;
-                        EquipForceGesture();
-                        //Apply force choking effect to victim
-                        GO.ApplyEffect((Effect)new XRL.World.Parts.Effects.ZD_Choking(Level, GetBaseDamage(Level), GetBonusDamage(Level), ParentObject, GetSaveBonus(Level), GetRange(Level), ForceGestureObject));
+                        //if(GO.HasTag("HeroNamePrefixes"))
+                        {
+                            ChokedObject = GO;
+                            EquipForceGesture();
+                            //Apply force choking effect to victim
+                            GO.ApplyEffect((Effect)new XRL.World.Parts.Effects.ZD_Choking(Level, GetBaseDamage(Level), GetBonusDamage(Level), ParentObject, GetSaveBonus(Level), GetRange(Level), ForceGestureObject));
+                        }
+                        else
+                        {
+                            Popup.Show("The target does not have a throat for you to choke!", true);
+                        }
 
                     }
                 }

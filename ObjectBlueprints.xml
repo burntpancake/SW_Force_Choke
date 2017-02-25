@@ -14,5 +14,16 @@
     <tag Name="NoSparkingQuest"></tag>
     <tag Name="ExcludeFromDynamicEncounters" Value="*noinherit"></tag>
     <part Name="ZD_SWForceGesture"></part>
+  </object>   
+  <object Name="Humanoid" Inherits="Creature" Load="Merge">
+  </object>
+  <object Name="BaseBear" Inherits="BaseAnimal" Load="Merge">
+  </object>
+  <object Name="BaseReptile" Inherits="Animal" Load="Merge">
+  </object>
+  <object Name="BaseBird" Inherits="Animal" Load="Merge">
+  </object>
+  <object Name="BaseAntelope" Inherits="BaseAnimal" Load="Merge">
   </object>
 </objects>
+
