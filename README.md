@@ -9,6 +9,11 @@ Official Modding Guide!
 
 https://freehold.atlassian.net/wiki/spaces/CQP
 
+Subscribe to force choke on steam workshop!
+
+http://steamcommunity.com/sharedfiles/filedetails/?id=871667673
+
+
 Force Choke is a mutation mod aim to let players cosplay a badass Jedi/Sith Warrior by using the famous Force choke.
 
 You can use the Force to squeeze a victim's throat continuously, doing so requires one free hand. 
